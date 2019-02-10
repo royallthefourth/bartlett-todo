@@ -1,0 +1,24 @@
+name: app
+
+type: golang:1.11
+
+hooks:
+  build: build.sh
+
+web:
+  upstream:
+    socket_family: tcp
+    protocol: http
+
+  commands:
+    start: ./bartlett-todo serve
+
+  locations:
+    /:
+      allow: false
+      passthru: true
+
+relationships:
+  database: "todo:mysql"
+
+disk: 1024
