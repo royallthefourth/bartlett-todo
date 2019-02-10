@@ -53,13 +53,24 @@ func serve(db *sql.DB, port string) {
 		return sess.Load(r).GetString(`user_id`)
 	}
 
-	// TODO wrap API handlers in a session checker
+	sessWrap := func (h func (http.ResponseWriter, *http.Request)) func (http.ResponseWriter, *http.Request) {
+		return func (w http.ResponseWriter, r *http.Request) {
+			s := sess.Load(r)
+			ex, _ := s.Exists(`user_id`)
+
+			if !ex {
+				s.PutString(w, `user_id`, newID())
+			}
+
+			h(w,r)
+		}
+	}
 
 	routes, handlers := bartlett.
 		Bartlett{DB: db, Driver: &mariadb.MariaDB{}, Tables: tables, Users: userProvider}.
 		Routes()
 	for i, route := range routes {
-		http.HandleFunc(`/api`+route, handlers[i]) // Adds /api/todo to the server.
+		http.HandleFunc(`/api`+route, sessWrap(handlers[i])) // Adds /api/todo to the server.
 	}
 
 	http.Handle(`/`, http.FileServer(http.Dir(`static`)))
