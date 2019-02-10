@@ -66,9 +66,8 @@ func serve(db *sql.DB, port string) {
 		}
 	}
 
-	routes, handlers := bartlett.
-		Bartlett{DB: db, Driver: &mariadb.MariaDB{}, Tables: tables, Users: userProvider}.
-		Routes()
+	b := bartlett.Bartlett{DB: db, Driver: &mariadb.MariaDB{}, Tables: tables, Users: userProvider}
+	routes, handlers := b.Routes()
 	for i, route := range routes {
 		http.HandleFunc(`/api`+route, sessWrap(handlers[i])) // Adds /api/todo to the server.
 	}
