@@ -3,8 +3,8 @@ name: app
 type: golang:1.11
 
 hooks:
-  build: build.sh
-  deploy: deploy.sh
+  build: ./build.sh
+  deploy: ./deploy.sh
 
 web:
   upstream:
