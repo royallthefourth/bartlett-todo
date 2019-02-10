@@ -21,7 +21,7 @@ import (
 func main() {
 	rand.Seed(time.Now().UnixNano())
 	i, _ := psh.NewPlatformInfo()
-	dsn, _ := i.SqlDsn(`todo`)
+	dsn, _ := i.SqlDsn(`database`)
 
 	db, err := sql.Open(`mysql`, dsn)
 	if err != nil {
