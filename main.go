@@ -2,6 +2,9 @@ package main
 
 import (
 	"database/sql"
+	"github.com/alexedwards/scs"
+	"github.com/alexedwards/scs/stores/memstore"
+	"github.com/go-http-utils/logger"
 	_ "github.com/go-sql-driver/mysql"
 	m "github.com/golang-migrate/migrate"
 	"github.com/golang-migrate/migrate/database/mysql"
@@ -40,21 +43,28 @@ func main() {
 func serve(db *sql.DB, port string) {
 	tables := []bartlett.Table{
 		{
-			Name:   `students`,
+			Name:   `todo`,
 			UserID: `user_id`, // Requests will only return rows corresponding to their ID for this table.
 		},
 	}
 
+	sess := scs.NewManager(memstore.New(time.Hour * 48))
+	userProvider := func(r *http.Request) (interface{}, error) {
+		return sess.Load(r).GetString(`user_id`)
+	}
+
+	// TODO wrap API handlers in a session checker
+
 	routes, handlers := bartlett.
-		Bartlett{DB: db, Driver: &mariadb.MariaDB{}, Tables: tables, Users: dummyUserProvider}.
+		Bartlett{DB: db, Driver: &mariadb.MariaDB{}, Tables: tables, Users: userProvider}.
 		Routes()
 	for i, route := range routes {
-		http.HandleFunc(`/api`+route, handlers[i]) // Adds /api/students to the server.
+		http.HandleFunc(`/api`+route, handlers[i]) // Adds /api/todo to the server.
 	}
 
 	http.Handle(`/`, http.FileServer(http.Dir(`static`)))
 	log.Println(`starting server`)
-	log.Fatal(http.ListenAndServe(`:`+port, nil))
+	log.Fatal(http.ListenAndServe(`:`+port, logger.DefaultHandler(http.DefaultServeMux)))
 }
 
 func truncate(conn *sql.DB) {
