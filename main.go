@@ -8,6 +8,7 @@ import (
 	_ "github.com/go-sql-driver/mysql"
 	m "github.com/golang-migrate/migrate"
 	"github.com/golang-migrate/migrate/database/mysql"
+	_ "github.com/golang-migrate/migrate/source/file"
 	psh "github.com/platformsh/gohelper"
 	"github.com/royallthefourth/bartlett"
 	"github.com/royallthefourth/bartlett/mariadb"
@@ -53,8 +54,8 @@ func serve(db *sql.DB, port string) {
 		return sess.Load(r).GetString(`user_id`)
 	}
 
-	sessWrap := func (h func (http.ResponseWriter, *http.Request)) func (http.ResponseWriter, *http.Request) {
-		return func (w http.ResponseWriter, r *http.Request) {
+	sessWrap := func(h func(http.ResponseWriter, *http.Request)) func(http.ResponseWriter, *http.Request) {
+		return func(w http.ResponseWriter, r *http.Request) {
 			s := sess.Load(r)
 			ex, _ := s.Exists(`user_id`)
 
@@ -62,7 +63,7 @@ func serve(db *sql.DB, port string) {
 				s.PutString(w, `user_id`, newID())
 			}
 
-			h(w,r)
+			h(w, r)
 		}
 	}
 
