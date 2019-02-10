@@ -28,7 +28,7 @@ func main() {
 		panic(err)
 	}
 
-	switch os.Args[0] {
+	switch os.Args[1] {
 	case `serve`:
 		serve(db, i.Port)
 	case `truncate`:
