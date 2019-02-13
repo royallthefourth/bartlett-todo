@@ -1,8 +1,8 @@
-module Main exposing (..)
+module Main exposing (Model, Msg(..), TodoItem, init, initialModel, main, subscriptions, todoItemEdit, todoItemRow, update, view)
 
 import Browser
-import Html exposing (Html, button, div, span, text)
-import Html.Attributes exposing (id)
+import Html exposing (Html, button, div, input, span, text)
+import Html.Attributes exposing (id, required, type_, value)
 import Html.Events exposing (onBlur, onClick)
 
 
@@ -46,33 +46,52 @@ initialModel =
 
 
 type Msg
-    = Increment
-    | Decrement
+    = EditClicked TodoItem
 
 
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        Increment ->
-            model + 1
+        EditClicked item ->
+            let
+                e =
+                    List.map
+                        (\el ->
+                            if el.id == item.id then
+                                { id = item.id
+                                , body = item.body
+                                , edit = True
+                                }
 
-        Decrement ->
-            model - 1
+                            else
+                                el
+                        )
+                        model.items
+            in
+            ( { model | items = e }, Cmd.none )
 
 
-view : Model -> Cmd Msg
+view : Model -> Html Msg
 view model =
     div [ id "elm" ]
-        [ span [] [text
-            case model.error of
-            Just String -> model.error
-            Nothing -> Just ""
-        ]
-        , List.map todoItemRow model.items
-        , button [ onClick Increment ] [ text "+" ] -- TODO add entry field
-        ]
+        ([ span []
+            [ text
+                (case model.error of
+                    Just e ->
+                        e
+
+                    Nothing ->
+                        ""
+                )
+            ]
+         ]
+            ++ List.map todoItemRow model.items
+            ++ [ input [ type_ "text", required True ] [] -- TODO add new item onblur
+               ]
+        )
 
 
-todoItemRow : TodoItem -> Cmd Msg
+todoItemRow : TodoItem -> Html Msg
 todoItemRow i =
     div []
         [ todoItemEdit i
@@ -80,10 +99,11 @@ todoItemRow i =
         ]
 
 
-todoItemEdit : TodoItem -> Cmd Msg
+todoItemEdit : TodoItem -> Html Msg
 todoItemEdit i =
     if i.edit == True then
-        text i.body
+        input [ type_ "text", required True, value i.body ] []
         -- TODO add edit field with update onblur
+
     else
-        text i.body
+        span [ onClick (EditClicked i) ] [ text i.body ]
