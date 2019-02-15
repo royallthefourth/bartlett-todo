@@ -3,9 +3,10 @@ module Main exposing (Model, Msg(..), TodoItem, init, initialModel, main, subscr
 import Browser
 import Html exposing (Html, button, div, input, span, text)
 import Html.Attributes exposing (id, placeholder, required, type_, value)
-import Html.Events exposing (onBlur, onClick)
+import Html.Events exposing (onBlur, onClick, onInput)
 import Http
 import Json.Decode exposing (Decoder, field, list, map2, string)
+import Json.Encode as Encode
 
 
 main =
@@ -27,13 +28,10 @@ init _ =
     ( initialModel, loadData )
 
 
-
--- TODO query for items on load
-
-
 type alias Model =
     { error : Maybe String
     , items : List TodoItem
+    , newItem : String
     }
 
 
@@ -48,6 +46,7 @@ initialModel : Model
 initialModel =
     { error = Nothing
     , items = []
+    , newItem = ""
     }
 
 
@@ -55,6 +54,9 @@ type Msg
     = EnableEdit TodoItem
     | FetchItems
     | DecodeItems (Result Http.Error (List TodoItem))
+    | EditNewItem String
+    | PostNewItem
+    | PostNewItemResult (Result Http.Error String)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -70,7 +72,6 @@ update msg model =
                                 , body = item.body
                                 , edit = True
                                 }
-
                             else
                                 el
                         )
@@ -82,8 +83,26 @@ update msg model =
             ( model, loadData )
 
         DecodeItems res ->
-            -- TODO handle decoder results
-            ( model, Cmd.none )
+            case res of
+                Err _ ->
+                    ( { model | error = Just "There was an error" }, Cmd.none )
+
+                Ok i ->
+                    ( { model | items = i }, Cmd.none )
+
+        EditNewItem i ->
+            ( { model | newItem = i }, Cmd.none )
+
+        PostNewItem ->
+            ( { model | newItem = "" }, postNewItem model.newItem )
+
+        PostNewItemResult res ->
+            case res of
+                Err _ ->
+                    ( { model | error = Just "There was an error" }, Cmd.none )
+
+                Ok _ ->
+                    ( model, loadData )
 
 
 view : Model -> Html Msg
@@ -101,7 +120,7 @@ view model =
             ]
          ]
             ++ List.map todoItemRow model.items
-            ++ [ input [ type_ "text", required True, placeholder "Add a todo" ] [] -- TODO add new item onblur
+            ++ [ input [ type_ "text", required True, placeholder "Add a todo", onInput EditNewItem, onBlur PostNewItem ] []
                ]
         )
 
@@ -118,8 +137,7 @@ todoItemEdit : TodoItem -> Html Msg
 todoItemEdit i =
     if i.edit == True then
         input [ type_ "text", required True, value i.body ] []
-        -- TODO add edit field with update onblur
-
+        -- TODO add update onblur
     else
         span [ onClick (EnableEdit i) ] [ text i.body ]
 
@@ -131,9 +149,22 @@ loadData =
         , expect = Http.expectJson DecodeItems (list todoItemDecoder)
         }
 
+postNewItem : String -> Cmd Msg
+postNewItem s =
+    Http.post
+        { url = "/api/todo"
+        , expect = Http.expectString PostNewItemResult
+        , body = Http.stringBody "application/json" (todoItemEncoder s)
+        }
+
 
 todoItemDecoder : Decoder TodoItem
 todoItemDecoder =
     map2 (\id body -> { id = id, body = body, edit = False })
         (field "todo_id" string)
         (field "body" string)
+
+
+todoItemEncoder : String -> String
+todoItemEncoder s =
+    Encode.encode 0 (Encode.list Encode.object [ [ ( "body", Encode.string s ) ] ])

@@ -13,4 +13,4 @@ bartlett-todo
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
-node_modules
+elm-stuff
