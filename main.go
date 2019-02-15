@@ -44,8 +44,9 @@ func main() {
 func serve(db *sql.DB, port string) {
 	tables := []bartlett.Table{
 		{
-			Name:   `todo`,
-			UserID: `user_id`, // Requests will only return rows corresponding to their ID for this table.
+			Name:     `todo`,
+			UserID:   `user_id`, // Requests will only return rows corresponding to their ID for this table.
+			Writable: true,
 		},
 	}
 
