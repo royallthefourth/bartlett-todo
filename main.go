@@ -73,7 +73,10 @@ func serve(db *sql.DB, port string) {
 			}
 
 			if !ex {
-				s.PutString(w, `user_id`, newID())
+				err = s.PutString(w, `user_id`, newID())
+				if err != nil {
+					log.Println(err.Error())
+				}
 			}
 
 			h(w, r)
