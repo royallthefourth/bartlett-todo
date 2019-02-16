@@ -44,6 +44,8 @@ github.com/royallthefourth/bartlett v0.1.2-0.20190216192344-489316090c37 h1:HDdG
 github.com/royallthefourth/bartlett v0.1.2-0.20190216192344-489316090c37/go.mod h1:6PVqMAUYMJGevdVIDg+YF2eLTQdNei+VQ9xpUZTnxX8=
 github.com/royallthefourth/bartlett v0.1.2-0.20190216194222-8b523879daa9 h1:EySE8Osi+WEEZseCkmSWK5YODVeEYLl1RtLc5Jln/FQ=
 github.com/royallthefourth/bartlett v0.1.2-0.20190216194222-8b523879daa9/go.mod h1:6PVqMAUYMJGevdVIDg+YF2eLTQdNei+VQ9xpUZTnxX8=
+github.com/royallthefourth/bartlett v0.1.2-0.20190216201028-a01a6f434a01 h1:L2mE+Qi0QXqhKeN/CIjO13sdP7BpSwCIi+GScxnVj8g=
+github.com/royallthefourth/bartlett v0.1.2-0.20190216201028-a01a6f434a01/go.mod h1:6PVqMAUYMJGevdVIDg+YF2eLTQdNei+VQ9xpUZTnxX8=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/objx v0.1.1/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
