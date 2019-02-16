@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"github.com/alexedwards/scs"
 	"github.com/alexedwards/scs/stores/memstore"
 	"github.com/go-http-utils/logger"
@@ -21,8 +22,15 @@ import (
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
-	i, _ := psh.NewPlatformInfo()
-	dsn, _ := i.SqlDsn(`database`)
+	var dsn, port string
+	if os.Getenv(`PLATFORM_PROJECT`) != `` {
+		i, _ := psh.NewPlatformInfo()
+		dsn, _ = i.SqlDsn(`database`)
+		port = i.Port
+	} else {
+		dsn = fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8", os.Getenv(`DB_USER`), os.Getenv(`DB_PASS`), `127.0.0.1`, 3306, `todo`)
+		port = `8080`
+	}
 
 	db, err := sql.Open(`mysql`, dsn)
 	if err != nil {
@@ -31,7 +39,7 @@ func main() {
 
 	switch os.Args[1] {
 	case `serve`:
-		serve(db, i.Port)
+		serve(db, port)
 	case `truncate`:
 		truncate(db)
 	case `migrate`:
@@ -58,7 +66,11 @@ func serve(db *sql.DB, port string) {
 	sessWrap := func(h func(http.ResponseWriter, *http.Request)) func(http.ResponseWriter, *http.Request) {
 		return func(w http.ResponseWriter, r *http.Request) {
 			s := sess.Load(r)
-			ex, _ := s.Exists(`user_id`)
+			ex, err := s.Exists(`user_id`)
+
+			if err != nil {
+				log.Println(err.Error())
+			}
 
 			if !ex {
 				s.PutString(w, `user_id`, newID())
