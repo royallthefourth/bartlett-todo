@@ -145,8 +145,8 @@ todoItemEdit i =
 loadData : Cmd Msg
 loadData =
     Http.get
-        { url = "/api/todo"
-        , expect = Http.expectJson DecodeItems (list todoItemDecoder)
+        { url = "/api/todo?order=date_added"
+        , expect = Http.expectJson DecodeItems todoListDecoder
         }
 
 postNewItem : String -> Cmd Msg
@@ -158,11 +158,11 @@ postNewItem s =
         }
 
 
-todoItemDecoder : Decoder TodoItem
-todoItemDecoder =
-    map2 (\id body -> { id = id, body = body, edit = False })
+todoListDecoder : Decoder (List TodoItem)
+todoListDecoder =
+    list (map2 (\id body -> { id = id, body = body, edit = False })
         (field "todo_id" string)
-        (field "body" string)
+        (field "body" string))
 
 
 todoItemEncoder : String -> String
