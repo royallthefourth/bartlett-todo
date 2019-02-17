@@ -40,14 +40,9 @@ github.com/platformsh/gohelper v1.0.0 h1:GOog7jKPSRA9+zt4E2G1P9YJuoQYkGx6yOJdSJl
 github.com/platformsh/gohelper v1.0.0/go.mod h1:oKUaVjmTWYlQrpaER/Bmh5Z7c7VY/uEjNeunFOYo2R8=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
-github.com/royallthefourth/bartlett v0.1.2-0.20190216192344-489316090c37 h1:HDdGAghBBe88DfzdQOYPfQg+bZ+7VpOsQ83u5vVzBYs=
-github.com/royallthefourth/bartlett v0.1.2-0.20190216192344-489316090c37/go.mod h1:6PVqMAUYMJGevdVIDg+YF2eLTQdNei+VQ9xpUZTnxX8=
-github.com/royallthefourth/bartlett v0.1.2-0.20190216194222-8b523879daa9 h1:EySE8Osi+WEEZseCkmSWK5YODVeEYLl1RtLc5Jln/FQ=
-github.com/royallthefourth/bartlett v0.1.2-0.20190216194222-8b523879daa9/go.mod h1:6PVqMAUYMJGevdVIDg+YF2eLTQdNei+VQ9xpUZTnxX8=
-github.com/royallthefourth/bartlett v0.1.2-0.20190216201028-a01a6f434a01 h1:L2mE+Qi0QXqhKeN/CIjO13sdP7BpSwCIi+GScxnVj8g=
-github.com/royallthefourth/bartlett v0.1.2-0.20190216201028-a01a6f434a01/go.mod h1:6PVqMAUYMJGevdVIDg+YF2eLTQdNei+VQ9xpUZTnxX8=
+github.com/royallthefourth/bartlett v0.1.2 h1:uxP1x/Fa0jDbWlY0wuil+sMacv22GLrB3juwk7G4o00=
+github.com/royallthefourth/bartlett v0.1.2/go.mod h1:6PVqMAUYMJGevdVIDg+YF2eLTQdNei+VQ9xpUZTnxX8=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
-github.com/stretchr/objx v0.1.1/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
 github.com/stretchr/testify v1.3.0 h1:TivCn/peBQ7UY8ooIcPgZFpTNSz0Q2U6UrFlUfqbe0Q=
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
