@@ -85,7 +85,7 @@ update msg model =
         DecodeItems res ->
             case res of
                 Err _ ->
-                    ( { model | error = Just "There was an error" }, Cmd.none )
+                    ( { model | error = Just "Decoding error" }, Cmd.none )
 
                 Ok i ->
                     ( { model | items = i }, Cmd.none )
@@ -99,7 +99,7 @@ update msg model =
         PostNewItemResult res ->
             case res of
                 Err _ ->
-                    ( { model | error = Just "There was an error" }, Cmd.none )
+                    ( { model | error = Just "HTTP error" }, Cmd.none )
 
                 Ok _ ->
                     ( model, loadData )
