@@ -96,17 +96,26 @@ func serve(db *sql.DB, port string) {
 }
 
 func truncate(conn *sql.DB) {
-	_, err := conn.Exec(`TRUNCATE TABLE todo`)
+	var count int
+	row := conn.QueryRow(`SELECT COUNT(*) FROM todo`)
+	err := row.Scan(&count)
 	if err != nil {
-		log.Fatalf(`truncate failed: %s`, err.Error())
+		log.Fatalf(`count failed: %s`, err.Error())
 	}
-	log.Println(`Truncated todo table.`)
+
+	if count > 2048 {
+		_, err = conn.Exec(`TRUNCATE TABLE todo`)
+		if err != nil {
+			log.Fatalf(`truncate failed: %s`, err.Error())
+		}
+		log.Printf(`Truncated todo table at length %d.`, count)
+	}
 }
 
 type migrationLogger struct{}
 
 func (migrationLogger) Printf(format string, v ...interface{}) {
-	log.Println(fmt.Printf(format, v...))
+	log.Printf(format, v...)
 }
 
 func (migrationLogger) Verbose() bool{
