@@ -57,6 +57,8 @@ type Msg
     | EditNewItem String
     | PostNewItem
     | PostNewItemResult (Result Http.Error String)
+    | DeleteItem Int
+    | DeleteItemResult (Result Http.Error String)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -104,6 +106,17 @@ update msg model =
                 Ok _ ->
                     ( model, loadData )
 
+        DeleteItem id ->
+            ( model, deleteItem id )
+
+        DeleteItemResult res ->
+            case res of
+                Err _ ->
+                    ( { model | error = Just "HTTP error" }, Cmd.none )
+
+                Ok _ ->
+                    ( model, loadData )
+
 
 view : Model -> Html Msg
 view model =
@@ -132,7 +145,7 @@ todoItemRow : TodoItem -> Html Msg
 todoItemRow i =
     div []
         [ todoItemEdit i
-        , button [] [ text "X" ] -- TODO add click event for delete
+        , button [ onClick (DeleteItem i.id) ] [ text "X" ]
         ]
 
 
@@ -150,6 +163,14 @@ loadData =
     Http.get
         { url = "/api/todo?order=date_added.asc"
         , expect = Http.expectJson DecodeItems todoListDecoder
+        }
+
+
+deleteItem : Int -> Cmd Msg
+deleteItem id =
+    delete
+        { url = "/api/todo?todo_id=eq." ++ (String.fromInt id)
+        , expect = Http.expectString DeleteItemResult
         }
 
 
@@ -177,3 +198,19 @@ todoListDecoder =
 todoItemEncoder : String -> String
 todoItemEncoder s =
     Encode.encode 0 (Encode.list Encode.object [ [ ( "body", Encode.string s ) ] ])
+
+delete
+  : { url : String
+    , expect : Http.Expect msg
+    }
+  -> Cmd msg
+delete r =
+  Http.request
+    { method = "GET"
+    , headers = []
+    , url = r.url
+    , body = Http.emptyBody
+    , expect = r.expect
+    , timeout = Nothing
+    , tracker = Nothing
+    }
