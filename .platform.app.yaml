@@ -23,7 +23,7 @@ web:
       expires: 1h
 
 relationships:
-  database: "todo:mysql"
+  database: "todolist:mysql"
 
 disk: 1024
 
