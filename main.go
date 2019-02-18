@@ -103,6 +103,16 @@ func truncate(conn *sql.DB) {
 	log.Println(`Truncated todo table.`)
 }
 
+type migrationLogger struct{}
+
+func (migrationLogger) Printf(format string, v ...interface{}) {
+	log.Println(fmt.Printf(format, v...))
+}
+
+func (migrationLogger) Verbose() bool{
+	return true
+}
+
 func migrate(conn *sql.DB) {
 	drv, err := mysql.WithInstance(conn, &mysql.Config{})
 	if err != nil {
@@ -110,6 +120,7 @@ func migrate(conn *sql.DB) {
 	}
 
 	migrator, err := m.NewWithDatabaseInstance("file://migrations", "mysql", drv)
+	migrator.Log = migrationLogger{}
 	if err != nil {
 		log.Fatalf(`could not create migration system: %s`, err.Error())
 	}
