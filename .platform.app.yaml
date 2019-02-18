@@ -16,10 +16,18 @@ web:
 
   locations:
     /:
-      allow: false
+      allow: true
       passthru: true
+      root: static
+      index: [index.html]
+      expires: 1h
 
 relationships:
   database: "todo:mysql"
 
 disk: 1024
+
+dependencies:
+  nodejs:
+    elm: "~0.19"
+    uglify-js: "~3.4"

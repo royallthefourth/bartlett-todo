@@ -1,9 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Bartlett Demo</title>
+    <title>Bartlett Todo Demo</title>
 </head>
 <body>
-<p>Frontend isn't implemented yet, sorry</p>
+<div id="elm">Loading...</div>
+
+<script type="application/javascript" src="elm.js"></script>
+<script type="application/javascript">
+    const app = Elm.Main.init({
+        node: document.getElementById('elm')
+    });
+</script>
 </body>
 </html>
