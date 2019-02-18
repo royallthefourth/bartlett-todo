@@ -1,9 +1,9 @@
 module Main exposing (Model, Msg(..), TodoItem, init, initialModel, main, subscriptions, todoItemEdit, todoItemRow, update, view)
 
 import Browser
-import Html exposing (Html, button, div, input, span, text)
+import Html exposing (Html, button, div, form, input, span, text)
 import Html.Attributes exposing (id, placeholder, required, type_, value)
-import Html.Events exposing (onBlur, onClick, onInput)
+import Html.Events exposing (onClick, onInput, onSubmit)
 import Http
 import Json.Decode exposing (Decoder, field, int, list, map2, string)
 import Json.Encode as Encode
@@ -120,8 +120,10 @@ view model =
             ]
          ]
             ++ List.map todoItemRow model.items
-            ++ [ input [ type_ "text", required True, placeholder "Add a todo", onInput EditNewItem ] []
-               , button [ onClick PostNewItem ] [ text "Add" ]
+            ++ [ form [ onSubmit PostNewItem ]
+                    [ input [ type_ "text", required True, placeholder "Add a todo", onInput EditNewItem ] []
+                    , button [ onClick PostNewItem ] [ text "Add" ]
+                    ]
                ]
         )
 
@@ -150,6 +152,7 @@ loadData =
         , expect = Http.expectJson DecodeItems todoListDecoder
         }
 
+
 postNewItem : String -> Cmd Msg
 postNewItem s =
     if not (String.isEmpty s) then
@@ -164,9 +167,11 @@ postNewItem s =
 
 todoListDecoder : Decoder (List TodoItem)
 todoListDecoder =
-    list (map2 (\id body -> { id = id, body = body, edit = False })
-        (field "todo_id" int)
-        (field "body" string))
+    list
+        (map2 (\id body -> { id = id, body = body, edit = False })
+            (field "todo_id" int)
+            (field "body" string)
+        )
 
 
 todoItemEncoder : String -> String
