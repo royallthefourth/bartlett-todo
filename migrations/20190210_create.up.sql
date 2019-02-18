@@ -6,4 +6,4 @@ CREATE TABLE todo
   body       VARCHAR(255) NOT NULL,
   INDEX (user_id),
   INDEX (date_added)
-);
+) DEFAULT COLLATE 'utf8mb4_unicode_ci';
