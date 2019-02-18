@@ -34,5 +34,5 @@ dependencies:
 
 crons:
   truncate:
-    spec: '* */1 * * *'
+    spec: '50 * * * *'
     cmd: ./bartlett-todo truncate
