@@ -120,7 +120,8 @@ view model =
             ]
          ]
             ++ List.map todoItemRow model.items
-            ++ [ input [ type_ "text", required True, placeholder "Add a todo", onInput EditNewItem, onBlur PostNewItem ] []
+            ++ [ input [ type_ "text", required True, placeholder "Add a todo", onInput EditNewItem ] []
+               , button [ onClick PostNewItem ] [ text "Add" ]
                ]
         )
 
