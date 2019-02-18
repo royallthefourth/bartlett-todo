@@ -36,6 +36,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	db.SetConnMaxLifetime(time.Minute * 2)
 
 	switch os.Args[1] {
 	case `serve`:

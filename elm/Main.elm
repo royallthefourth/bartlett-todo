@@ -5,7 +5,7 @@ import Html exposing (Html, button, div, input, span, text)
 import Html.Attributes exposing (id, placeholder, required, type_, value)
 import Html.Events exposing (onBlur, onClick, onInput)
 import Http
-import Json.Decode exposing (Decoder, field, list, map2, string)
+import Json.Decode exposing (Decoder, field, int, list, map2, string)
 import Json.Encode as Encode
 
 
@@ -36,7 +36,7 @@ type alias Model =
 
 
 type alias TodoItem =
-    { id : String
+    { id : Int
     , body : String
     , edit : Bool
     }
@@ -161,7 +161,7 @@ postNewItem s =
 todoListDecoder : Decoder (List TodoItem)
 todoListDecoder =
     list (map2 (\id body -> { id = id, body = body, edit = False })
-        (field "todo_id" string)
+        (field "todo_id" int)
         (field "body" string))
 
 
