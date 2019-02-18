@@ -91,7 +91,7 @@ func serve(db *sql.DB, port string) {
 	}
 
 	http.Handle(`/`, http.FileServer(http.Dir(`static`)))
-	log.Println(`starting server`)
+	log.Println(`starting server on ` + port)
 	log.Fatal(http.ListenAndServe(`:`+port, logger.DefaultHandler(http.DefaultServeMux)))
 }
 
