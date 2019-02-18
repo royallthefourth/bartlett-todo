@@ -206,7 +206,7 @@ delete
   -> Cmd msg
 delete r =
   Http.request
-    { method = "GET"
+    { method = "DELETE"
     , headers = []
     , url = r.url
     , body = Http.emptyBody
