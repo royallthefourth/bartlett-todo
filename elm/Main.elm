@@ -145,17 +145,20 @@ todoItemEdit i =
 loadData : Cmd Msg
 loadData =
     Http.get
-        { url = "/api/todo?order=date_added"
+        { url = "/api/todo?order=date_added.asc"
         , expect = Http.expectJson DecodeItems todoListDecoder
         }
 
 postNewItem : String -> Cmd Msg
 postNewItem s =
-    Http.post
-        { url = "/api/todo"
-        , expect = Http.expectString PostNewItemResult
-        , body = Http.stringBody "application/json" (todoItemEncoder s)
-        }
+    if not (String.isEmpty s) then
+        Http.post
+            { url = "/api/todo"
+            , expect = Http.expectString PostNewItemResult
+            , body = Http.stringBody "application/json" (todoItemEncoder s)
+            }
+    else
+        Cmd.none
 
 
 todoListDecoder : Decoder (List TodoItem)
