@@ -169,7 +169,7 @@ loadData =
 deleteItem : Int -> Cmd Msg
 deleteItem id =
     delete
-        { url = "/api/todo?todo_id=eq." ++ (String.fromInt id)
+        { url = "/api/todo?todo_id=eq." ++ String.fromInt id
         , expect = Http.expectString DeleteItemResult
         }
 
@@ -199,18 +199,19 @@ todoItemEncoder : String -> String
 todoItemEncoder s =
     Encode.encode 0 (Encode.list Encode.object [ [ ( "body", Encode.string s ) ] ])
 
-delete
-  : { url : String
+
+delete :
+    { url : String
     , expect : Http.Expect msg
     }
-  -> Cmd msg
+    -> Cmd msg
 delete r =
-  Http.request
-    { method = "DELETE"
-    , headers = []
-    , url = r.url
-    , body = Http.emptyBody
-    , expect = r.expect
-    , timeout = Nothing
-    , tracker = Nothing
-    }
+    Http.request
+        { method = "DELETE"
+        , headers = []
+        , url = r.url
+        , body = Http.emptyBody
+        , expect = r.expect
+        , timeout = Nothing
+        , tracker = Nothing
+        }
