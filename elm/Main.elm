@@ -187,7 +187,7 @@ view model =
 todoItemRow : TodoItem -> Html Msg
 todoItemRow i =
     if i.edit == True then
-        form []
+        form [ onSubmit (PatchItem i) ]
             [ input [ type_ "text", required True, value i.body, onInput (UpdateValue i) ] []
             , button [ onClick (PatchItem i) ] [ text "Save" ]
             ]
@@ -234,7 +234,7 @@ patchItem i =
         patch
             { url = "/api/todo?todo_id=eq." ++ String.fromInt i.id
             , expect = Http.expectString IgnoreHttpResponse
-            , body = Http.stringBody "application/json" (todoItemEncoder i) -- TODO create an encoder for whole TodoItems
+            , body = Http.stringBody "application/json" (todoItemEncoder i)
             }
 
     else
