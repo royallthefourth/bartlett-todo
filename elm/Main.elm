@@ -221,7 +221,7 @@ postNewItem s =
         Http.post
             { url = "/api/todo"
             , expect = Http.expectString PostNewItemResult
-            , body = Http.stringBody "application/json" (todoItemEncoder s)
+            , body = Http.stringBody "application/json" (newTodoItemEncoder s)
             }
 
     else
@@ -250,9 +250,15 @@ todoListDecoder =
         )
 
 
-todoItemEncoder : String -> String
-todoItemEncoder s =
-    Encode.encode 0 (Encode.list Encode.object [ [ ( "body", Encode.string s ) ] ])
+newTodoItemEncoder : String -> String
+newTodoItemEncoder body =
+    Encode.encode 0 (Encode.list Encode.object [ [ ( "body", Encode.string body ) ] ])
+
+
+todoItemEncoder : TodoItem -> String
+todoItemEncoder i =
+    Encode.encode 0 (Encode.list
+        Encode.object [ [ ("id", Encode.int i.id), ( "body", Encode.string i.body ) ] ])
 
 
 delete :
