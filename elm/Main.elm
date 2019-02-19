@@ -189,7 +189,7 @@ todoItemRow i =
     if i.edit == True then
         form [ onSubmit (PatchItem i) ]
             [ input [ type_ "text", required True, value i.body, onInput (UpdateValue i) ] []
-            , button [ onClick (PatchItem i) ] [ text "Save" ]
+            , button [] [ text "Save" ]
             ]
 
     else
