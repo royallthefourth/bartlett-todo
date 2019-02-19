@@ -257,8 +257,11 @@ newTodoItemEncoder body =
 
 todoItemEncoder : TodoItem -> String
 todoItemEncoder i =
-    Encode.encode 0 (Encode.list
-        Encode.object [ [ ("id", Encode.int i.id), ( "body", Encode.string i.body ) ] ])
+    Encode.encode 0
+        (Encode.list
+            Encode.object
+            [ [ ( "id", Encode.int i.id ), ( "body", Encode.string i.body ) ] ]
+        )
 
 
 delete :
@@ -277,19 +280,20 @@ delete r =
         , tracker = Nothing
         }
 
-patch
-  : { url : String
+
+patch :
+    { url : String
     , body : Http.Body
     , expect : Http.Expect msg
     }
-  -> Cmd msg
+    -> Cmd msg
 patch r =
-  Http.request
-    { method = "PATCH"
-    , headers = []
-    , url = r.url
-    , body = r.body
-    , expect = r.expect
-    , timeout = Nothing
-    , tracker = Nothing
-    }
+    Http.request
+        { method = "PATCH"
+        , headers = []
+        , url = r.url
+        , body = r.body
+        , expect = r.expect
+        , timeout = Nothing
+        , tracker = Nothing
+        }
