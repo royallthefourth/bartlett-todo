@@ -1,4 +1,4 @@
-module Main exposing (Model, Msg(..), TodoItem, init, initialModel, main, subscriptions, todoItemEdit, todoItemRow, update, view)
+module Main exposing (main)
 
 import Browser
 import Html exposing (Html, button, div, form, input, span, text)
@@ -52,6 +52,8 @@ initialModel =
 
 type Msg
     = EnableEdit TodoItem
+    | UpdateValue TodoItem String
+    | PatchItem TodoItem
     | FetchItems
     | DecodeItems (Result Http.Error (List TodoItem))
     | EditNewItem String
@@ -59,6 +61,7 @@ type Msg
     | PostNewItemResult (Result Http.Error String)
     | DeleteItem Int
     | DeleteItemResult (Result Http.Error String)
+    | IgnoreHttpResponse (Result Http.Error String)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -74,12 +77,49 @@ update msg model =
                                 , body = item.body
                                 , edit = True
                                 }
+
                             else
                                 el
                         )
                         model.items
             in
             ( { model | items = e }, Cmd.none )
+
+        UpdateValue item body ->
+            let
+                e =
+                    List.map
+                        (\el ->
+                            if el.id == item.id then
+                                { id = item.id
+                                , body = body
+                                , edit = True
+                                }
+
+                            else
+                                el
+                        )
+                        model.items
+            in
+            ( { model | items = e }, Cmd.none )
+
+        PatchItem item ->
+            let
+                e =
+                    List.map
+                        (\el ->
+                            if el.id == item.id then
+                                { id = item.id
+                                , body = item.body
+                                , edit = False
+                                }
+
+                            else
+                                el
+                        )
+                        model.items
+            in
+            ( { model | items = e }, patchItem item )
 
         FetchItems ->
             ( model, loadData )
@@ -117,6 +157,9 @@ update msg model =
                 Ok _ ->
                     ( model, loadData )
 
+        IgnoreHttpResponse _ ->
+            ( model, Cmd.none )
+
 
 view : Model -> Html Msg
 view model =
@@ -143,19 +186,17 @@ view model =
 
 todoItemRow : TodoItem -> Html Msg
 todoItemRow i =
-    div []
-        [ todoItemEdit i
-        , button [ onClick (DeleteItem i.id) ] [ text "X" ]
-        ]
-
-
-todoItemEdit : TodoItem -> Html Msg
-todoItemEdit i =
     if i.edit == True then
-        input [ type_ "text", required True, value i.body ] []
-        -- TODO add update onblur
+        form []
+            [ input [ type_ "text", required True, value i.body, onInput (UpdateValue i) ] []
+            , button [ onClick (PatchItem i) ] [ text "Save" ]
+            ]
+
     else
-        span [ onClick (EnableEdit i) ] [ text i.body ]
+        div []
+            [ span [ onClick (EnableEdit i) ] [ text i.body ]
+            , button [ onClick (DeleteItem i.id) ] [ text "X" ]
+            ]
 
 
 loadData : Cmd Msg
@@ -182,6 +223,20 @@ postNewItem s =
             , expect = Http.expectString PostNewItemResult
             , body = Http.stringBody "application/json" (todoItemEncoder s)
             }
+
+    else
+        Cmd.none
+
+
+patchItem : TodoItem -> Cmd Msg
+patchItem i =
+    if not (String.isEmpty i.body) then
+        patch
+            { url = "/api/todo?todo_id=eq." ++ String.fromInt i.id
+            , expect = Http.expectString IgnoreHttpResponse
+            , body = Http.stringBody "application/json" (todoItemEncoder i) -- TODO create an encoder for whole TodoItems
+            }
+
     else
         Cmd.none
 
@@ -215,3 +270,20 @@ delete r =
         , timeout = Nothing
         , tracker = Nothing
         }
+
+patch
+  : { url : String
+    , body : Http.Body
+    , expect : Http.Expect msg
+    }
+  -> Cmd msg
+patch r =
+  Http.request
+    { method = "PATCH"
+    , headers = []
+    , url = r.url
+    , body = r.body
+    , expect = r.expect
+    , timeout = Nothing
+    , tracker = Nothing
+    }
