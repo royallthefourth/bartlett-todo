@@ -77,7 +77,6 @@ update msg model =
                                 , body = item.body
                                 , edit = True
                                 }
-
                             else
                                 el
                         )
@@ -95,7 +94,6 @@ update msg model =
                                 , body = body
                                 , edit = True
                                 }
-
                             else
                                 el
                         )
@@ -113,7 +111,6 @@ update msg model =
                                 , body = item.body
                                 , edit = False
                                 }
-
                             else
                                 el
                         )
@@ -191,7 +188,6 @@ todoItemRow i =
             [ input [ type_ "text", required True, value i.body, onInput (UpdateValue i) ] []
             , button [] [ text "Save" ]
             ]
-
     else
         div []
             [ span [ onClick (EnableEdit i) ] [ text i.body ]
@@ -223,7 +219,6 @@ postNewItem s =
             , expect = Http.expectString PostNewItemResult
             , body = Http.stringBody "application/json" (newTodoItemEncoder s)
             }
-
     else
         Cmd.none
 
@@ -236,7 +231,6 @@ patchItem i =
             , expect = Http.expectString IgnoreHttpResponse
             , body = Http.stringBody "application/json" (todoItemEncoder i)
             }
-
     else
         Cmd.none
 
@@ -257,11 +251,7 @@ newTodoItemEncoder body =
 
 todoItemEncoder : TodoItem -> String
 todoItemEncoder i =
-    Encode.encode 0
-        (Encode.list
-            Encode.object
-            [ [ ( "id", Encode.int i.id ), ( "body", Encode.string i.body ) ] ]
-        )
+    Encode.encode 0 (Encode.object [ ( "id", Encode.int i.id ), ( "body", Encode.string i.body ) ])
 
 
 delete :
