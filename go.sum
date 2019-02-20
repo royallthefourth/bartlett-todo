@@ -2,6 +2,8 @@ github.com/DATA-DOG/go-sqlmock v1.3.0 h1:ljjRxlddjfChBJdFKJs5LuCwCWPLaC1UZLwAo3P
 github.com/DATA-DOG/go-sqlmock v1.3.0/go.mod h1:f/Ixk793poVmq4qj/V1dPUg2JEAKC73Q5eFN3EC/SaM=
 github.com/DATA-DOG/go-sqlmock v1.3.2 h1:2L2f5t3kKnCLxnClDD/PrDfExFFa1wjESgxHG/B1ibo=
 github.com/DATA-DOG/go-sqlmock v1.3.2/go.mod h1:f/Ixk793poVmq4qj/V1dPUg2JEAKC73Q5eFN3EC/SaM=
+github.com/Masterminds/squirrel v1.1.0 h1:baP1qLdoQCeTw3ifCdOq2dkYc6vGcmRdaociKLbEJXs=
+github.com/Masterminds/squirrel v1.1.0/go.mod h1:yaPeOnPG5ZRwL9oKdTsO/prlkPbXWZlRVMQ/gGlzIuA=
 github.com/Microsoft/go-winio v0.4.11 h1:zoIOcVf0xPN1tnMVbTtEdI+P8OofVk3NObnwOQ6nK2Q=
 github.com/Microsoft/go-winio v0.4.11/go.mod h1:VhR8bwka0BXejwEJY73c50VrPtXAaKcyvVC4A4RozmA=
 github.com/alexedwards/scs v1.4.0 h1:8klmbSQv2jOxvY8VUcEyxbMWSNNKKtVp2IZdug5b+8g=
@@ -20,8 +22,6 @@ github.com/docker/go-connections v0.4.0 h1:El9xVISelRB7BuFusrZozjnkIM5YnzCViNKoh
 github.com/docker/go-connections v0.4.0/go.mod h1:Gbd7IOopHjR8Iph03tsViu4nIes5XhDvyHbTtUxmeec=
 github.com/docker/go-units v0.3.3 h1:Xk8S3Xj5sLGlG5g67hJmYMmUgXv5N4PhkjJHHqrwnTk=
 github.com/docker/go-units v0.3.3/go.mod h1:fgPhTUdO+D/Jk86RDLlptpiXQzgHJF7gydDDbaIK4Dk=
-github.com/elgris/sqrl v0.0.0-20181124135704-90ecf730640a h1:VRAv/FIe+jL6t/kHB43hrwhUIyP2/cq+vC/9bdS8v4o=
-github.com/elgris/sqrl v0.0.0-20181124135704-90ecf730640a/go.mod h1:hQPgqeM4LmbfKCaBkcedRq5y1yfb8Qb8iYdbuNjE4FU=
 github.com/go-http-utils/logger v0.0.0-20161128092850-f3a42dcdeae6 h1:R/ypabUA7vskKTRSlgP6rMUHTU6PBRgIcHVSU9qQ6qM=
 github.com/go-http-utils/logger v0.0.0-20161128092850-f3a42dcdeae6/go.mod h1:CpBLxS3WrxouNECP/Y1A3i6qDnUYs8BvcXjgOW4Vqcw=
 github.com/go-sql-driver/mysql v1.4.1 h1:g24URVg0OFbNUTx9qqY1IRZ9D9z3iPyi5zKhQZpNwpA=
@@ -29,6 +29,13 @@ github.com/go-sql-driver/mysql v1.4.1/go.mod h1:zAC/RDZ24gD3HViQzih4MyKcchzm+sOG
 github.com/golang-migrate/migrate v3.5.4+incompatible h1:R7OzwvCJTCgwapPCiX6DyBiu2czIUMDCB118gFTKTUA=
 github.com/golang-migrate/migrate v3.5.4+incompatible/go.mod h1:IsVUlFN5puWOmXrqjgGUfIRIbU7mr8oNBE2tyERd9Wk=
 github.com/golang/protobuf v1.2.0/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5yJMmIC1U=
+github.com/lann/builder v0.0.0-20180802200727-47ae307949d0 h1:SOEGU9fKiNWd/HOJuq6+3iTQz8KNCLtVX6idSoTLdUw=
+github.com/lann/builder v0.0.0-20180802200727-47ae307949d0/go.mod h1:dXGbAdH5GtBTC4WfIxhKZfyBF/HBFgRZSWwZ9g/He9o=
+github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0 h1:P6pPBnrTSX3DEVR4fDembhRWSsG5rVo6hYhAB/ADZrk=
+github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0/go.mod h1:vmVJ0l/dxyfGW6FmdpVm2joNMFikkuWg0EoCKLGUMNw=
+github.com/lib/pq v1.0.0 h1:X5PMW56eZitiTeO7tKzZxFCSpbFZJtkMMooicw2us9A=
+github.com/lib/pq v1.0.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
+github.com/mattn/go-sqlite3 v1.10.0 h1:jbhqpg7tQe4SupckyijYiy0mJJ/pRyHvXf7JdWK860o=
 github.com/mattn/go-sqlite3 v1.10.0/go.mod h1:FPy6KqzDD04eiIsT53CuJW3U88zkxoIYsOqkbpncsNc=
 github.com/opencontainers/go-digest v1.0.0-rc1 h1:WzifXhOVOEOuFYOJAW6aQqW0TooG2iki3E3Ii+WN7gQ=
 github.com/opencontainers/go-digest v1.0.0-rc1/go.mod h1:cMLVZDEM3+U2I4VmLI6N8jQYUd2OVphdqWwCJHrFt2s=
@@ -40,8 +47,8 @@ github.com/platformsh/gohelper v1.0.0 h1:GOog7jKPSRA9+zt4E2G1P9YJuoQYkGx6yOJdSJl
 github.com/platformsh/gohelper v1.0.0/go.mod h1:oKUaVjmTWYlQrpaER/Bmh5Z7c7VY/uEjNeunFOYo2R8=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
-github.com/royallthefourth/bartlett v0.1.3-0.20190220012454-4d9f661717d2 h1:tKI7dXYYNXyhnB+6Klw/kw7eNXibRTTo9tw1NImRKS0=
-github.com/royallthefourth/bartlett v0.1.3-0.20190220012454-4d9f661717d2/go.mod h1:6PVqMAUYMJGevdVIDg+YF2eLTQdNei+VQ9xpUZTnxX8=
+github.com/royallthefourth/bartlett v0.1.3-0.20190220040958-9f81acde914a h1:1bsGyEiWnqhsNC3UNUdzjM+JLpbmYAVbDkp09hGQVIM=
+github.com/royallthefourth/bartlett v0.1.3-0.20190220040958-9f81acde914a/go.mod h1:dQtwTBt3HU7W/RDxvSudgk58bMhFo//hjpsBOGKFjJs=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
 github.com/stretchr/testify v1.3.0 h1:TivCn/peBQ7UY8ooIcPgZFpTNSz0Q2U6UrFlUfqbe0Q=
