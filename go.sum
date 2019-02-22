@@ -47,8 +47,8 @@ github.com/platformsh/gohelper v1.0.0 h1:GOog7jKPSRA9+zt4E2G1P9YJuoQYkGx6yOJdSJl
 github.com/platformsh/gohelper v1.0.0/go.mod h1:oKUaVjmTWYlQrpaER/Bmh5Z7c7VY/uEjNeunFOYo2R8=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
-github.com/royallthefourth/bartlett v0.1.3-0.20190221020341-a0cf26ec1bb0 h1:b80+GA9VeNKqz66ZFavceXRYjU6taKXVHLIJr5KmBvw=
-github.com/royallthefourth/bartlett v0.1.3-0.20190221020341-a0cf26ec1bb0/go.mod h1:dQtwTBt3HU7W/RDxvSudgk58bMhFo//hjpsBOGKFjJs=
+github.com/royallthefourth/bartlett v0.1.4 h1:J8T05xqafH4zAjV8scfIeiL/opoSVK72jsFf1BNOBqY=
+github.com/royallthefourth/bartlett v0.1.4/go.mod h1:dQtwTBt3HU7W/RDxvSudgk58bMhFo//hjpsBOGKFjJs=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
 github.com/stretchr/testify v1.3.0 h1:TivCn/peBQ7UY8ooIcPgZFpTNSz0Q2U6UrFlUfqbe0Q=

@@ -15,7 +15,7 @@ require (
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
 	github.com/pkg/errors v0.8.1 // indirect
 	github.com/platformsh/gohelper v1.0.0
-	github.com/royallthefourth/bartlett v0.1.3-0.20190221020341-a0cf26ec1bb0
+	github.com/royallthefourth/bartlett v0.1.4
 	golang.org/x/crypto v0.0.0-20190211182817-74369b46fc67 // indirect
 	golang.org/x/net v0.0.0-20190213061140-3a22650c66bd // indirect
 	golang.org/x/sys v0.0.0-20190215142949-d0b11bdaac8a // indirect
