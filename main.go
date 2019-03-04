@@ -36,9 +36,20 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	db.SetConnMaxLifetime(time.Minute * 2)
-	db.SetMaxIdleConns(18)
-	db.SetMaxOpenConns(36)
+	var maxConns, waitTime int
+	var col string
+	err = db.QueryRow(`SHOW VARIABLES LIKE 'max_connections'`).Scan(&col, &maxConns)
+	if err != nil {
+		panic(err)
+	}
+	db.SetMaxIdleConns(maxConns/2)
+	db.SetMaxOpenConns(maxConns)
+
+	err = db.QueryRow(`SHOW VARIABLES LIKE 'wait_timeout'`).Scan(&col, &waitTime)
+	if err != nil {
+		panic(err)
+	}
+	db.SetConnMaxLifetime(time.Second * time.Duration(waitTime))
 
 	switch os.Args[1] {
 	case `serve`:
