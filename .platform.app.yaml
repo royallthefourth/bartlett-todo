@@ -25,7 +25,7 @@ web:
 relationships:
   database: "todolist:mysql"
 
-disk: 1024
+disk: 8
 
 dependencies:
   nodejs:
