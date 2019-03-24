@@ -98,9 +98,9 @@ func serve(db *sql.DB, port string) {
 	}
 
 	b := bartlett.Bartlett{DB: db, Driver: &mariadb.MariaDB{}, Tables: tables, Users: userProvider}
-	routes, handlers := b.Routes()
-	for i, route := range routes {
-		http.HandleFunc(`/api`+route, sessWrap(handlers[i])) // Adds /api/todo to the server.
+	routes := b.Routes()
+	for _, route := range routes {
+		http.HandleFunc(`/api`+route.Path, sessWrap(route.Handler)) // Adds /api/todo to the server.
 	}
 
 	http.Handle(`/`, http.FileServer(http.Dir(`static`)))
@@ -131,7 +131,7 @@ func (migrationLogger) Printf(format string, v ...interface{}) {
 	log.Printf(format, v...)
 }
 
-func (migrationLogger) Verbose() bool{
+func (migrationLogger) Verbose() bool {
 	return true
 }
 
