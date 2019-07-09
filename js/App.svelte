@@ -1,7 +1,12 @@
 <script>
     import TodoItem from './TodoItem.svelte';
-	// TODO fetch set of items
-	const items = []
+    import {onMount} from 'svelte';
+	let items = [];
+
+    onMount(async () => {
+        const res = await fetch(`/api/todo?order=date_added.asc`);
+        items = await res.json();
+    });
 </script>
 
 {#each items as item}
