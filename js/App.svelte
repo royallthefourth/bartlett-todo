@@ -7,3 +7,8 @@
 {#each items as item}
 <TodoItem id={item.id} body={item.body} edit=false />
 {/each}
+
+<form>
+    <input type="text" required placeholder="Add a todo">
+    <button>Add</button>
+</form>

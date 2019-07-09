@@ -15,8 +15,3 @@
     <button>X</button>
 </div>
 {/if}
-
-<form>
-    <input type="text" required placeholder="Add a todo">
-    <button>Add</button>
-</form>
