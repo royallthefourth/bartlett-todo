@@ -20,7 +20,7 @@
 
 <p>edit is {edit}</p>
 
-{#if edit}
+{#if edit == true}
   <form on:submit|preventDefault={saveItem}>
     <input type="text" required bind:value={body} />
     <button>Save</button>
