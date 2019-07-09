@@ -27,11 +27,6 @@ relationships:
 
 disk: 128
 
-dependencies:
-  nodejs:
-    elm: "~0.19"
-    uglify-js: "~3.4"
-
 crons:
   truncate:
     spec: '50 * * * *'
