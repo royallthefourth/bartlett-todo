@@ -12,7 +12,6 @@
   async function addItem() {
     if (newBody.length > 0) {
       let p = await fetch(`/api/todo`, {
-        credentials: "same-origin",
         method: "POST",
         body: JSON.stringify([{ body: newBody }])
       });

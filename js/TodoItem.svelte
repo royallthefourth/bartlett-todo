@@ -15,7 +15,6 @@
   async function saveItem() {
     edit = false;
     await fetch("/api/todo?todo_id=eq." + todo_id, {
-      credentials: "same-origin",
       method: "PATCH",
       body: JSON.stringify({ body: body })
     });
@@ -23,7 +22,6 @@
 
   async function deleteItem() {
     let p = await fetch("/api/todo?todo_id=eq." + todo_id, {
-      credentials: "same-origin",
       method: "DELETE"
     });
     if (p.ok) {
