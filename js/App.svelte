@@ -1,4 +1,5 @@
 <script>
+    import TodoItem from './TodoItem.svelte';
     import {onMount} from 'svelte';
 	let items = [];
 	let newBody = '';
