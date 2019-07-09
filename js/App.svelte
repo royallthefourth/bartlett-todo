@@ -2,7 +2,7 @@
   import TodoItem from "./TodoItem.svelte";
   import { onMount } from "svelte";
   let items = [];
-  let newBody = '';
+  let newBody = "";
 
   onMount(async () => {
     const res = await fetch(`/api/todo?order=date_added.asc`);
@@ -20,7 +20,7 @@
 
       let res = await fetch(`/api/todo?order=date_added.asc`);
       items = await res.json();
-      newBody = '';
+      newBody = "";
     }
   }
 
@@ -32,11 +32,7 @@
 </script>
 
 {#each items as item}
-  <TodoItem
-    todo_id={item.todo_id}
-    body={item.body}
-    edit="false"
-    on:delete={handleDelete} />
+  <TodoItem todo_id={item.todo_id} body={item.body} on:delete={handleDelete} />
 {/each}
 
 <form on:submit|preventDefault={addItem}>

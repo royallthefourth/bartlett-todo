@@ -3,17 +3,22 @@
 
   const dispatch = createEventDispatcher();
 
-  export let body = '';
+  export let body = "";
   export let todo_id = null;
-  export let edit = false;
+
+  let edit = false;
 
   function enableEdit() {
     edit = true;
   }
 
-  function saveItem() {
+  async function saveItem() {
     edit = false;
-    // TODO patch item body back to server
+    await fetch("/api/todo?todo_id=eq." + todo_id, {
+      credentials: "same-origin",
+      method: "PATCH",
+      body: JSON.stringify([{ body: body }])
+    });
   }
 
   async function deleteItem() {
@@ -21,10 +26,11 @@
       credentials: "same-origin",
       method: "DELETE"
     });
-    await p.json();
-    dispatch("delete", {
-      todo_id: todo_id
-    });
+    if (p.ok) {
+      dispatch("delete", {
+        todo_id: todo_id
+      });
+    }
   }
 </script>
 
