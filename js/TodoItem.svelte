@@ -3,8 +3,8 @@
 
   const dispatch = createEventDispatcher();
 
-  export let body = "";
-  export let todo_id = "";
+  export let body = '';
+  export let todo_id = null;
   export let edit = false;
 
   function enableEdit() {

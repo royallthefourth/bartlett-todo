@@ -2,7 +2,7 @@
   import TodoItem from "./TodoItem.svelte";
   import { onMount } from "svelte";
   let items = [];
-  let newBody = "";
+  let newBody = '';
 
   onMount(async () => {
     const res = await fetch(`/api/todo?order=date_added.asc`);
@@ -20,15 +20,13 @@
 
       let res = await fetch(`/api/todo?order=date_added.asc`);
       items = await res.json();
-      newBody = "";
+      newBody = '';
     }
   }
 
   function handleDelete(event) {
-      console.log(event)
     items = items.filter(function(item) {
-        console.log(item)
-      return item.todo_id !== event.details.todo_id;
+      return item.todo_id !== event.detail.todo_id;
     });
   }
 </script>
