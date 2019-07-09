@@ -1,4 +1,5 @@
 <script>
+    import TodoItem from './TodoItem.svelte';
 	// TODO fetch set of items
 	const items = []
 </script>
