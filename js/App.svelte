@@ -26,14 +26,14 @@
 
   function handleDelete(event) {
     items = items.filter(function(item) {
-      return item.id !== event.details.id;
+      return item.todo_id !== event.details.todo_id;
     });
   }
 </script>
 
 {#each items as item}
   <TodoItem
-    id={item.id}
+    todo_id={item.todo_id}
     body={item.body}
     edit="false"
     on:delete={handleDelete} />

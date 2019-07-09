@@ -4,7 +4,7 @@
   const dispatch = createEventDispatcher();
 
   export let body = "";
-  export let id = "";
+  export let todo_id = "";
   export let edit = false;
 
   function enableEdit() {
@@ -17,13 +17,13 @@
   }
 
   async function deleteItem() {
-    let p = await fetch("/api/todo?todo_id=eq." + id, {
+    let p = await fetch("/api/todo?todo_id=eq." + todo_id, {
       credentials: "same-origin",
       method: "DELETE"
     });
     await p.json();
     dispatch("delete", {
-      id: id
+      todo_id: todo_id
     });
   }
 </script>
