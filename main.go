@@ -148,7 +148,7 @@ func migrate(conn *sql.DB) {
 	}
 
 	err = migrator.Up()
-	if err != nil {
+	if err != nil && err != m.ErrNoChange {
 		log.Fatalf(`could not run migrations: %s`, err.Error())
 	}
 }
