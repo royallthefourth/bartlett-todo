@@ -1,4 +1,8 @@
 <script>
+  import { createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
+
   export let body = "";
   export let id = "";
   export let edit = false;
@@ -12,9 +16,15 @@
     // TODO patch item body back to server
   }
 
-  function deleteItem() {
-    // TODO send delete request
-    // TODO send event back up the chain to trigger a reload
+  async function deleteItem() {
+    let p = await fetch("/api/todo?todo_id=eq." + id, {
+      credentials: "same-origin",
+      method: "DELETE"
+    });
+    await p.json();
+    dispatch("delete", {
+      id: id
+    });
   }
 </script>
 

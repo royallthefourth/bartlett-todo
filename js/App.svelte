@@ -23,10 +23,20 @@
       newBody = "";
     }
   }
+
+  function handleDelete(event) {
+    items = items.filter(function(item) {
+      return item.id !== event.details.id;
+    });
+  }
 </script>
 
 {#each items as item}
-  <TodoItem id={item.id} body={item.body} edit="false" />
+  <TodoItem
+    id={item.id}
+    body={item.body}
+    edit="false"
+    on:delete={handleDelete} />
 {/each}
 
 <form on:submit|preventDefault={addItem}>
