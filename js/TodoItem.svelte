@@ -17,7 +17,7 @@
     await fetch("/api/todo?todo_id=eq." + todo_id, {
       credentials: "same-origin",
       method: "PATCH",
-      body: JSON.stringify([{ body: body }])
+      body: JSON.stringify({ body: body })
     });
   }
 
