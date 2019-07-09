@@ -14,11 +14,9 @@
 
   function deleteItem() {
     // TODO send delete request
-    // TODO delete this element?
+    // TODO send event back up the chain to trigger a reload
   }
 </script>
-
-<p>edit is {edit}</p>
 
 {#if edit == true}
   <form on:submit|preventDefault={saveItem}>
