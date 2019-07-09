@@ -25,7 +25,9 @@
   }
 
   function handleDelete(event) {
+      console.log(event)
     items = items.filter(function(item) {
+        console.log(item)
       return item.todo_id !== event.details.todo_id;
     });
   }
