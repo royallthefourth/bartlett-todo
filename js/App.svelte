@@ -16,7 +16,7 @@
         body: JSON.stringify({ body: newBody })
       });
       let res = await p.json();
-      items[items.length-1].todo_id = res.inserts[0];
+      items = [...items, {body: newBody, todo_id: res.inserts[0]}];
       newBody = "";
     }
   }
