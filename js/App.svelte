@@ -15,10 +15,8 @@
         method: "POST",
         body: JSON.stringify({ body: newBody })
       });
-      await p.json();
-
-      let res = await fetch(`/api/todo?order=date_added.asc`); // TODO replace this fetch with the ID result from the insert
-      items = await res.json();
+      let res = await p.json();
+      items[items.length-1].todo_id = res.inserts[0];
       newBody = "";
     }
   }
