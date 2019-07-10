@@ -13,11 +13,11 @@
     if (newBody.length > 0) {
       let p = await fetch(`/api/todo`, {
         method: "POST",
-        body: JSON.stringify([{ body: newBody }])
+        body: JSON.stringify({ body: newBody })
       });
       await p.json();
 
-      let res = await fetch(`/api/todo?order=date_added.asc`);
+      let res = await fetch(`/api/todo?order=date_added.asc`); // TODO replace this fetch with the ID result from the insert
       items = await res.json();
       newBody = "";
     }
